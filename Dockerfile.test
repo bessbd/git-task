@@ -1,2 +1,3 @@
 FROM bessbd/docker-groovy-bash-git
 COPY . /git-task
+WORKDIR /git-task
