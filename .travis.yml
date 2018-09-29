@@ -1,10 +1,8 @@
 language: bash
 services: docker
-python:
-- 3.7-dev
 script: bash test.sh
 deploy:
   provider: script
-  script: pip3 install setuptools twine && python3 setup.py sdist bdist_wheel && twine upload dist/*
+  script: docker run --mount src="$(pwd)",target=/app,type=bind -it python bash -c "cd /app && pip3 install twine && python3 setup.py sdist bdist_wheel && twine upload dist/*"
   on:
     tags: true
