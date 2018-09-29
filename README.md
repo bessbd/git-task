@@ -9,4 +9,5 @@
 
 ```
 pip install git-task
+python -m git-task install
 ```

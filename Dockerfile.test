@@ -1,3 +1,4 @@
-FROM bessbd/docker-groovy-bash-git
+FROM bessbd/docker-python-pytest
 COPY . /git-task
+RUN pip install /git-task/dist/*.whl && python -m git-task install
 WORKDIR /git-task

@@ -1,4 +1,6 @@
-import setuptools, subprocess
+import setuptools
+import subprocess
+
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
@@ -13,11 +15,11 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/bessbd/git-task",
     packages=setuptools.find_packages(),
+    install_requires=[
+        "fire",
+    ],
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
 )
-
-#TODO git config --global alias.task '!'"groovy $(pwd)/git-task/git-task.groovy"
-
