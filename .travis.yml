@@ -1,3 +1,9 @@
-language: bash
-services: docker
+language: python
+python:
+- 3.7-dev
 script: bash test.sh
+deploy:
+  provider: script
+  script: python3 setup.py sdist bdist_wheel && pip install twine && twine upload dist/*
+  on:
+    tags: true
