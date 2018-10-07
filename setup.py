@@ -6,14 +6,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="git-task",
+    name="gittask",
     version=subprocess.check_output(["git", "describe", "--tags"]).decode().strip(),
     author="bessbd",
     author_email="bessbd@gmail.com",
     description="Git-task",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/bessbd/git-task",
+    url="https://github.com/bessbd/gittask",
     packages=setuptools.find_packages(),
     install_requires=[
         "fire",

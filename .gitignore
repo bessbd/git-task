@@ -3,3 +3,4 @@ build
 dist
 git_task.egg-info
 **/__pycache__
+*.pyc
