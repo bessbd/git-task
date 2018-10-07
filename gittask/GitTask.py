@@ -1,13 +1,18 @@
 import fire
 
-class GitTask():
+
+class GitTask:
     """Git-task is a task management system"""
-    def add(self):
+
+    @staticmethod
+    def add():
         print("add")
 
-    def remove(self):
+    @staticmethod
+    def remove():
         """Removes one todo item"""
         print("remove")
 
 
-fire.Fire(GitTask)
+if __name__ == '__main__':
+    fire.Fire(GitTask)

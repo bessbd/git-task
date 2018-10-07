@@ -8,6 +8,5 @@
 ## Installation
 
 ```
-pip install git-task
-python -m git-task install
+pip install gittask && python -m gittask install
 ```
