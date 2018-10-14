@@ -8,7 +8,7 @@ dockerbuild:
 	docker build -t git-task/test .
 
 dockerrun:
-	docker run -it git-task/test pytest
+	docker run git-task/test pytest
 
 test: dockerbuild dockerrun
 
