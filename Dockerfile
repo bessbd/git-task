@@ -5,5 +5,5 @@ RUN \
     flake8 && \
     python3 setup.py sdist bdist_wheel && \
     pip install /git-task/dist/*.whl && \
-    python -m gittask install
+    gittask install_git_alias
 WORKDIR /git-task

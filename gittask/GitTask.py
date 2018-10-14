@@ -1,4 +1,8 @@
+import os
+
 import fire
+import shlex
+import subprocess
 
 
 class GitTask:
@@ -16,6 +20,19 @@ class GitTask:
     def remove():
         """Removes one todo item"""
         print("remove")
+
+    @staticmethod
+    def install_git_alias():
+        subprocess.check_call(
+            shlex.split(
+                "git config --global alias.task '!python3 " + os.path.join(
+                    os.path.dirname(os.path.realpath(__file__)),
+                    "GitTask.py") + "'"))
+
+    @staticmethod
+    def uninstall_git_alias():
+        subprocess.check_call(
+            shlex.split("git config --global --unset-all alias.task"))
 
 
 def main():

@@ -8,5 +8,5 @@
 ## Installation
 
 ```
-pip install gittask && python -m gittask install
+pip install gittask && gittask install_git_alias
 ```
