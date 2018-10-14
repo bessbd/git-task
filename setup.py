@@ -1,13 +1,13 @@
 import setuptools
 import subprocess
 
-
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
     name="gittask",
-    version=subprocess.check_output(["git", "describe", "--tags"]).decode().strip(),
+    version=subprocess.check_output(
+        "git describe --tags".split()).decode().strip(),
     author="bessbd",
     author_email="bessbd@gmail.com",
     description="Git-task",
