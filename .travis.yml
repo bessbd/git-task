@@ -3,8 +3,6 @@ services: docker
 addons:
   sonarcloud:
     organization: bessbd-github
-    token:
-      secure: GBdpseNzDlJ3KunXvJtgKdM+I3/rKc54/w4AR54JPv/nk7w1VMtRyM/03teF3YrEkXOt9oIlR6Et5wPYOClS9EUASqLroHPV2A3qxgTgTVp6DHyTYEjTrm6ujrqZl4Zq0tnsemcSPy30trHeHLzA+RpPOdNhk8dwQsoEsy/3eFq5JD2i09G5vuBQovDBtadBSlwMYedX26+tz7vhPr8tTxLrix5g0tKNedl/qmalfIwV2zlX3m+tiCXFlCGlBvLG6yrBqP5X9bwZUN02q5mWtlUsJjhjs2CyfF+OegfNdCNNPxwAeMoepy2OjFKW6Tzp0v9mnSirQNs2/Kme/vE/33itFeQ8deW7/dBCIJIT0mCeVtDr75wDl8qAFJU2RE2hA2p52w0cPCcdOcIbDNg4Ity4RQxZKU42qP26yu+YsXhbKWVQKgTAqvXGz44NQkHeQMA8HQ90jNRjXzbR4t4OjhC5CZVSIzrViflD+cJ9Ypm/RyRTVBzDXVSs7W6uXQi/HDklBfO8W8Uewxwm73ZC7RPSBnTVwJbd+lx+DupmySDgEEfhjl3BnS/NADkP1n7fguNcjvTd+kF7g9sNUqDPd95jJEWjvGu/ZvVoewhX6laXhuOibzx7PLRCGSPrUSlHe7RossS2pF80mKXy3Dhwddc3n5/liGGZjgl4OxVQRrc=
 script:
 - make test
 - sonar-scanner
