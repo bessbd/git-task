@@ -1,16 +1,21 @@
 import shlex
 import subprocess
 
-DEFAULT_OUTPUT_NO_PARAMS = "Type:        GitTask"
+GITTASK_NO_PARAMS_DEFAULT_OUTPUT = "Type:        GitTask"
+
+
+def assert_command_output_starts_with_default_output(command):
+    assert subprocess.check_output(shlex.split(command)).decode().startswith(
+        GITTASK_NO_PARAMS_DEFAULT_OUTPUT)
 
 
 def test_git_alias_works():
-    assert subprocess.check_output(shlex.split("git task")).decode().startswith(DEFAULT_OUTPUT_NO_PARAMS)
+    assert_command_output_starts_with_default_output("git task")
 
 
 def test_executable_works():
-    assert subprocess.check_output(shlex.split("gittask")).decode().startswith(DEFAULT_OUTPUT_NO_PARAMS)
+    assert_command_output_starts_with_default_output("gittask")
 
 
 def test_python_module_works():
-    assert subprocess.check_output(shlex.split("python -m gittask")).decode().startswith(DEFAULT_OUTPUT_NO_PARAMS)
+    assert_command_output_starts_with_default_output("python -m gittask")

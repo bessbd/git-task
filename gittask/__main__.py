@@ -10,8 +10,9 @@ class GitTaskInstaller(GitTask):
     def install():
         subprocess.check_call(
             shlex.split(
-                "git config --global alias.task '!python3 " + os.path.join(os.path.dirname(os.path.realpath(__file__)),
-                                                                           "GitTask.py") + "'"))
+                "git config --global alias.task '!python3 " + os.path.join(
+                    os.path.dirname(os.path.realpath(__file__)),
+                    "GitTask.py") + "'"))
 
     @staticmethod
     def uninstall():
