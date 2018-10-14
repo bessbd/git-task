@@ -14,3 +14,6 @@ test: dockerbuild dockerrun
 
 clean:
 	rm -rf .pytest_cache build dist __pycache__
+
+release:
+	docker run -e TWINE_USERNAME -e TWINE_PASSWORD --mount src="$(pwd)",target=/app,type=bind -w /app -it python bash -c "pip3 install twine && python3 setup.py sdist bdist_wheel && twine upload dist/*"
