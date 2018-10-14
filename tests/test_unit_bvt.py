@@ -1,6 +1,7 @@
 import sys
+
 sys.path.append("..")
-from gittask.GitTask import GitTask
+from gittask.GitTask import GitTask  # noqa: E402
 
 
 def test_add_works(capsys):

@@ -9,10 +9,18 @@ class GitTask:
         print("add")
 
     @staticmethod
+    def list():
+        print("list")
+
+    @staticmethod
     def remove():
         """Removes one todo item"""
         print("remove")
 
 
-if __name__ == '__main__':
+def main():
     fire.Fire(GitTask)
+
+
+if __name__ == '__main__':
+    main()
