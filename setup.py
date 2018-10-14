@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="gittask",
-    version="0.0.37",
+    version="0.0.38",
     author="bessbd",
     author_email="bessbd@gmail.com",
     description="Git-task",
