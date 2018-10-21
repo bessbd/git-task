@@ -15,6 +15,7 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     install_requires=[
         "fire",
+        "pyyaml",
     ],
     classifiers=[
         "License :: OSI Approved :: MIT License",

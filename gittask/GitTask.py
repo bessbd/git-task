@@ -1,24 +1,53 @@
 import os
 
 import fire
+import logging
 import shlex
 import subprocess
+import yaml
 
 
 class GitTask:
     """Git-task is a task management system"""
 
-    @staticmethod
-    def add():
-        print("add")
+    TASKS_FILE_NAME = ".tasks"
+    task_list = None
 
-    @staticmethod
-    def list():
-        print("list")
+    def __init__(self):
+        try:
+            with(open(self.TASKS_FILE_NAME, 'r')) as tasks_file:
+                self.task_list = yaml.load(tasks_file)
+        except FileNotFoundError:
+            logging.info("No " + self.TASKS_FILE_NAME +
+                         " file found. Proceeding with empty task list.")
+
+    def __list_default_tasks(self):
+        return self.task_list or []
+
+    def save(self):
+        if self.task_list is not None:
+            with(open(self.TASKS_FILE_NAME, 'w')) as tasks_file:
+                yaml.dump(self.task_list, stream=tasks_file,
+                          default_flow_style=False)
+
+    def add(self, summary, assignee=None, deadline=None):
+        print("Adding new item with summary: \"" + summary + "\"")
+        self.task_list = self.__list_default_tasks() + [summary]
+        self.save()
+
+    def list(self):
+        if self.task_list is None:
+            print("No " + self.TASKS_FILE_NAME
+                  + " present  in current directory.")
+        if self.task_list is None or self.task_list == []:
+            print("Hooray, task list is empty!")
+            return
+        for item in self.task_list:
+            print(item)
 
     @staticmethod
     def remove():
-        """Removes one todo item"""
+        """Removes one task"""
         print("remove")
 
     @staticmethod
