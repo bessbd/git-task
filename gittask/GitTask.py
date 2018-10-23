@@ -10,39 +10,39 @@ import yaml
 class GitTask:
     """Git-task is a task management system"""
 
-    TASKS_FILE_NAME = ".tasks.yml"
-    task_list = None
+    __TASKS_FILE_NAME = ".tasks.yml"
+    __task_list = None
 
     def __init__(self):
         try:
-            with(open(self.TASKS_FILE_NAME, 'r')) as tasks_file:
-                self.task_list = yaml.load(tasks_file)
+            with(open(self.__TASKS_FILE_NAME, 'r')) as tasks_file:
+                self.__task_list = yaml.load(tasks_file)
         except FileNotFoundError:
-            logging.info("No " + self.TASKS_FILE_NAME +
+            logging.info("No " + self.__TASKS_FILE_NAME +
                          " file found. Proceeding with empty task list.")
 
     def __list_default_tasks(self):
-        return self.task_list or []
+        return self.__task_list or []
 
     def save(self):
-        if self.task_list is not None:
-            with(open(self.TASKS_FILE_NAME, 'w')) as tasks_file:
-                yaml.dump(self.task_list, stream=tasks_file,
+        if self.__task_list is not None:
+            with(open(self.__TASKS_FILE_NAME, 'w')) as tasks_file:
+                yaml.dump(self.__task_list, stream=tasks_file,
                           default_flow_style=False)
 
     def add(self, summary, assignee=None, deadline=None):
         print("Adding new item with summary: \"" + summary + "\"")
-        self.task_list = self.__list_default_tasks() + [summary]
+        self.__task_list = self.__list_default_tasks() + [summary]
         self.save()
 
     def list(self):
-        if self.task_list is None:
-            print("No " + self.TASKS_FILE_NAME
+        if self.__task_list is None:
+            print("No " + self.__TASKS_FILE_NAME
                   + " present  in current directory.")
-        if self.task_list is None or self.task_list == []:
+        if self.__task_list is None or self.__task_list == []:
             print("Hooray, task list is empty!")
             return
-        for item in self.task_list:
+        for item in self.__task_list:
             print(item)
 
     @staticmethod
