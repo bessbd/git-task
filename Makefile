@@ -15,6 +15,24 @@ test: dockerbuild dockerrun
 clean:
 	rm -rf .pytest_cache build dist __pycache__
 
+install_semver:
+	pip install semver
+
+bump_patch:
+	python -c "import semver; version=semver.bump_patch(open('VERSION')\
+	.read().strip()); f=open('VERSION', 'w'); f.write(version)"
+
+bump_minor:
+	python -c "import semver; version=semver.bump_minor(open('VERSION')\
+	.read().strip()); f=open('VERSION', 'w'); f.write(version)"
+
+bump_major:
+	python -c "import semver; version=semver.bump_major(open('VERSION')\
+	.read().strip()); f=open('VERSION', 'w'); f.write(version)"
+
+bump_commit:
+	git commit -am "Bump version to `cat VERSION`"
+
 release:
 	git tag `python3 setup.py --version` && git push --tags
 

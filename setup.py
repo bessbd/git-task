@@ -1,11 +1,16 @@
+import os
 import setuptools
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+with open(os.path.join(os.path.dirname(os.path.realpath(__file__)), 'VERSION')
+          ) as version_file:
+    version = version_file.read().strip()
+
 setuptools.setup(
     name="gittask",
-    version="0.0.38",
+    version=version,
     author="bessbd",
     author_email="bessbd@gmail.com",
     description="Git-task",
@@ -16,6 +21,9 @@ setuptools.setup(
     install_requires=[
         "fire",
         "pyyaml",
+    ],
+    data_files=[
+        ('', ['VERSION']),
     ],
     classifiers=[
         "License :: OSI Approved :: MIT License",
