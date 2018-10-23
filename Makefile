@@ -34,7 +34,7 @@ bump_commit:
 	git commit -am "Bump version to `cat VERSION`"
 
 release:
-	git tag `python3 setup.py --version` && git push --tags
+	git tag `python3 setup.py --version` && git push && git push --tags
 
 upload:
 	docker run -e TWINE_USERNAME -e TWINE_PASSWORD --mount \
