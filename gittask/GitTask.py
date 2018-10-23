@@ -10,7 +10,7 @@ import yaml
 class GitTask:
     """Git-task is a task management system"""
 
-    TASKS_FILE_NAME = ".tasks"
+    TASKS_FILE_NAME = ".tasks.yml"
     task_list = None
 
     def __init__(self):

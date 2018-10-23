@@ -10,8 +10,8 @@ def test_parse_file_does_not_exist(tmpdir, caplog):
     caplog.set_level(logging.INFO)
     git_task = GitTask()
     assert caplog.record_tuples == [
-        ('root', logging.INFO, 'No .tasks file found. Proceeding with' +
-         ' empty task list.'),
+        ('root', logging.INFO, 'No ' + GitTask.TASKS_FILE_NAME +
+         ' file found. Proceeding with empty task list.'),
     ]
     assert git_task.task_list is None
 
@@ -37,4 +37,4 @@ def test_add_bvt(tmpdir, capsys, caplog):
     assert git_task.task_list == [test_summary]
     out, err = capsys.readouterr()
     assert (out, err) == ("Adding new item with summary: \"test task\"\n", '')
-    assert tmpdir.join(".tasks").read() == "- test task\n"
+    assert tmpdir.join(".tasks.yml").read() == "- test task\n"
