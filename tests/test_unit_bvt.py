@@ -28,4 +28,4 @@ def test_add_bvt(tmpdir, capsys, caplog):
     git_task.add(test_summary)
     out, err = capsys.readouterr()
     assert (out, err) == ("Adding new item with summary: \"test task\"\n", '')
-    assert tmpdir.join(".tasks.yml").read() == "- test task\n"
+    assert tmpdir.join(".tasks.yml").read().startswith("- test task")
