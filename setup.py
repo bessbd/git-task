@@ -22,9 +22,7 @@ setuptools.setup(
         "fire",
         "pyyaml",
     ],
-    data_files=[
-        ('', ['VERSION']),
-    ],
+    include_package_data=True,
     classifiers=[
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",

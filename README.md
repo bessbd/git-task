@@ -8,5 +8,12 @@
 ## Installation
 
 ```
-pip install gittask && gittask install_git_alias
+pip install gittask
+```
+
+
+## Installing git alias
+
+```
+gittask install_git_alias
 ```

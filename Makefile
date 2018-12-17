@@ -10,6 +10,9 @@ dockerbuild:
 dockerrun:
 	docker run git-task/test pytest
 
+devshell:
+	docker build -t git-task/test . && docker run -it git-task/test bash
+
 test: dockerbuild dockerrun
 
 clean:
