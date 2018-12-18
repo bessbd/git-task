@@ -5,6 +5,7 @@
 ## Dependencies
 * [Python >=3.7](https://www.python.org/downloads/release/python-370/)
 
+
 ## Installation
 
 ```
@@ -16,4 +17,11 @@ pip install gittask
 
 ```
 gittask install_git_alias
+```
+
+
+## Enabling bash completion
+
+```
+echo 'eval "$(gittask -- --completion)"' >> ~/.bashrc
 ```

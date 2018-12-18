@@ -29,7 +29,8 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts': [
-            'gittask = gittask.GitTask:main'
+            'gittask = gittask.GitTask:main',
+            'gt = gittask.GitTask:main'
         ],
     },
 )
