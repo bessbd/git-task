@@ -1,19 +1,23 @@
 .DEFAULT_GOAL := test
 
-.PHONY: all dockerbuild dockerrun test clean release upload
+.PHONY: all dockerbuild dockertest test clean release upload
 
 all: test
 
 dockerbuild:
-	docker build -t git-task/test .
+	docker build -t git-task .
 
-dockerrun:
-	docker run git-task/test pytest
+dockerdevbuild:
+	docker build -t git-task/test -f Dockerfile.dev .
 
-devshell:
-	docker build -t git-task/test . && docker run -it git-task/test bash
+dockertest:
+	docker run -v /var/run/docker.sock:/var/run/docker.sock git-task/test \
+	pytest
 
-test: dockerbuild dockerrun
+devshell: dockerbuild dockerdevbuild
+	docker run -it git-task bash
+
+test: dockerbuild dockerdevbuild dockertest
 
 clean:
 	rm -rf .pytest_cache build dist __pycache__

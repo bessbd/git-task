@@ -32,7 +32,7 @@ class GitTask:
         return ''.join(random.SystemRandom().choices(
             string.ascii_lowercase + string.digits, k=self.__ID_LENGTH))
 
-    def __convert_item_to_dict(self, item, **kwargs):
+    def __normalize_task(self, item, **kwargs):
         if type(item) is str:
             item = {item: {}}
 
@@ -45,34 +45,36 @@ class GitTask:
 
         return {key: {k: v for k, v in details.items() if v is not None}}
 
-    def __convert_task_list_to_item_dict(self, item_list=None):
-        return [self.__convert_item_to_dict(item) for item in item_list]
+    def __normalize_list(self, item_list):
+        return [self.__normalize_task(item) for item in item_list]
 
     def __save(self):
         if self.__task_list is not None:
             with(open(self.__TASKS_FILE_NAME, 'w')) as tasks_file:
-                yaml.dump(
-                    self.__convert_task_list_to_item_dict(self.__task_list),
-                    stream=tasks_file,
-                    default_flow_style=False)
+                self.__serialize_list(self.__task_list, stream=tasks_file)
+
+    def __serialize_list(self, item_list, **kwargs):
+        return yaml.dump(
+            self.__normalize_list(item_list),
+            default_flow_style=False,
+            **kwargs
+        )
 
     def add(self, summary, assignee=None, deadline=None):
         print("Adding new item with summary: \"" + summary + "\"")
         self.__task_list = self.__list_default_tasks() + [
-            self.__convert_item_to_dict(summary, assignee=assignee,
-                                        deadline=deadline)]
+            self.__normalize_task(summary, assignee=assignee,
+                                  deadline=deadline)]
         self.__save()
 
     def list(self):
         if self.__task_list is None:
             print("No " + self.__TASKS_FILE_NAME
-                  + " present  in current directory.")
-        if self.__task_list is None or self.__task_list == []:
+                  + " present in current directory.")
+        elif self.__task_list is None or self.__task_list == []:
             print("Hooray, task list is empty!")
-            return
-        print(
-            yaml.dump(self.__convert_task_list_to_item_dict(self.__task_list),
-                      default_flow_style=False))
+        else:
+            print(self.__serialize_list(self.__task_list))
 
     def reformat(self):
         self.__save()
@@ -92,8 +94,7 @@ class GitTask:
             print("Task with id: " + id + " not found")
         elif len(items) > 1:
             print("More than one task with id " + id + " found: \n" +
-                  yaml.dump(self.__convert_task_list_to_item_dict(items),
-                            default_flow_style=False))
+                  self.__serialize_list(items))
         else:
             print("Removing task with id: " + id)
             self.__task_list.remove(items[0])
