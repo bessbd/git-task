@@ -25,7 +25,7 @@ def test_executable_works():
 
 
 def test_list_no_tasks_yml():
-    assert get_stdout_for("gt list").\
+    assert get_stdout_for("gt ls").\
         startswith("No .tasks.yml present in current directory.")
 
 
@@ -37,5 +37,5 @@ def test_add_item():
 def test_list_after_add():
     output_regex = re.compile('Adding new item with summary: "foo"\\n'
                               '- foo:\\s+id: \\w{8}\\s*')
-    assert output_regex.match(get_stdout_for("gt add foo && gt list")
+    assert output_regex.match(get_stdout_for("gt add foo && gt ls")
                               ) is not None

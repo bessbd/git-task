@@ -1,7 +1,7 @@
 .idea
 build
 dist
-git_task.egg-info
+gittask.egg-info
 **/__pycache__
 *.pyc
 .pytest_cache

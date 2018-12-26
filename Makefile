@@ -14,8 +14,11 @@ dockertest: dockerbuild dockerdevbuild
 	docker run -v /var/run/docker.sock:/var/run/docker.sock git-task/test \
 	pytest
 
-devshell: dockerbuild
-	docker run -it git-task bash
+devshell_build:
+	docker build -t git-task/devshell -f Dockerfile.devshell .
+
+devshell_run: devshell_build
+	docker run -v `pwd`:/git-task -it git-task/devshell
 
 docs:
 	pycco -d docs gittask/GitTask.py

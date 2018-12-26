@@ -1,3 +1,4 @@
+import datetime
 import logging
 import os
 import random
@@ -6,6 +7,7 @@ import string
 import subprocess
 
 import fire
+import parsedatetime
 import yaml
 
 
@@ -13,7 +15,6 @@ class GitTask:
     """Git-task is a task management system"""
 
     __TASKS_FILE_NAME = ".tasks.yml"
-    __ID_LENGTH = 8
 
     __task_list = None
 
@@ -29,8 +30,8 @@ class GitTask:
         return self.__task_list or []
 
     def __gen_id(self):
-        return ''.join(random.SystemRandom().choices(
-            string.ascii_lowercase + string.digits, k=self.__ID_LENGTH))
+        return ''.join(
+            random.SystemRandom().choices(string.ascii_lowercase, k=8))
 
     def __normalize_task(self, item, **kwargs):
         if type(item) is str:
@@ -40,7 +41,9 @@ class GitTask:
             raise ValueError("Unexpected item type")
 
         [(key, details)] = item.items()
+
         details.setdefault("id", self.__gen_id())
+
         details.update({k: v for k, v in kwargs.items() if v is not None})
 
         return {key: {k: v for k, v in details.items() if v is not None}}
@@ -61,13 +64,19 @@ class GitTask:
         )
 
     def add(self, summary, assignee=None, deadline=None):
+        """Add a task with the details provided"""
         print("Adding new item with summary: \"" + summary + "\"")
+        if deadline is not None:
+            time_struct, parse_status = parsedatetime.Calendar().parse(
+                deadline)
+            deadline = datetime.datetime(*time_struct[:6]).isoformat()
         self.__task_list = self.__list_default_tasks() + [
             self.__normalize_task(summary, assignee=assignee,
                                   deadline=deadline)]
         self.__save()
 
-    def list(self):
+    def ls(self):
+        """List all tasks"""
         if self.__task_list is None:
             print("No " + self.__TASKS_FILE_NAME
                   + " present in current directory.")
@@ -79,7 +88,7 @@ class GitTask:
     def reformat(self):
         self.__save()
 
-    def remove(self, id):
+    def rm(self, id):
         """Remove one task"""
 
         def __id_matches(item):
@@ -91,12 +100,13 @@ class GitTask:
         items = [item for item in self.__list_default_tasks() if
                  __id_matches(item)]
         if len(items) == 0:
-            print("Task with id: " + id + " not found")
+            print("Task with id: {0} not found".format(id))
         elif len(items) > 1:
-            print("More than one task with id " + id + " found: \n" +
-                  self.__serialize_list(items))
+            print("More than one task with id {0} found: \n{1}".format(
+                id, self.__serialize_list(items)))
         else:
-            print("Removing task with id: " + id)
+            print("Removing task with id: {0}: \n{1}".format(
+                id, self.__serialize_list(items)))
             self.__task_list.remove(items[0])
             self.__save()
 
@@ -117,6 +127,26 @@ class GitTask:
         """Remove global git alias that was installed by `install_git_alias`"""
         subprocess.check_call(
             shlex.split("git config --global --unset-all alias.task"))
+
+    @staticmethod
+    def config_get(key):
+        """Get a config variable"""
+        pass
+
+    @staticmethod
+    def config_set(key, value):
+        """Set a config variable"""
+        pass
+
+    @staticmethod
+    def config_global_get(key):
+        """Get a config variable"""
+        pass
+
+    @staticmethod
+    def config_global_set(key, value):
+        """Set a config variable"""
+        pass
 
 
 def main():  # Required for entry_points in setup.py

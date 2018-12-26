@@ -1,0 +1,11 @@
+FROM python
+VOLUME /git-task
+COPY requirements.txt /
+RUN pip install -r requirements.txt && rm /requirements.txt
+WORKDIR /git-task
+CMD \
+    python3 setup.py sdist bdist_wheel && \
+    pip install /git-task/dist/*.whl && \
+    gittask install_git_alias && \
+    echo 'eval "$(gt -- --completion)"' >> ~/.bashrc && \
+    bash
