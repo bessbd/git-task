@@ -10,7 +10,7 @@ dockerbuild:
 dockerdevbuild:
 	docker build -t git-task/test -f Dockerfile.dev .
 
-dockertest: dockerdevbuild
+dockertest: dockerbuild dockerdevbuild
 	docker run -v /var/run/docker.sock:/var/run/docker.sock git-task/test \
 	pytest
 
@@ -25,11 +25,8 @@ test: dockertest
 clean:
 	rm -rf .pytest_cache build dist __pycache__
 
-install_semver:
-	pip install semver
-
-install_pycco:
-	pip install pycco
+install_devtools:
+	pip install semver pycco
 
 bump_patch:
 	python -c "import semver; version=semver.bump_patch(open('VERSION')\

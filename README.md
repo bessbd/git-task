@@ -28,4 +28,4 @@ echo 'eval "$(gittask -- --completion)"' >> ~/.bashrc
 
 
 ## Docs
-The annotated source is available at [docs//GitTask.html](docs/GitTask.html)
+The annotated source is available at [docs/GitTask.html](https://bessbd.github.io/git-task/GitTask.html)
