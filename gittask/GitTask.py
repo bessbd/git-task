@@ -80,7 +80,7 @@ class GitTask:
         self.__save()
 
     def remove(self, id):
-        """Removes one task"""
+        """Remove one task"""
 
         def __id_matches(item):
             [(key, details)] = item.items()
@@ -102,6 +102,10 @@ class GitTask:
 
     @staticmethod
     def install_git_alias():
+        """
+        Install a global git alias. Basically execute `git config
+        --global alias.task <path to GitTask.py>`
+        """
         subprocess.check_call(
             shlex.split(
                 "git config --global alias.task '!python3 " + os.path.join(
@@ -110,11 +114,12 @@ class GitTask:
 
     @staticmethod
     def uninstall_git_alias():
+        """Remove global git alias that was installed by `install_git_alias`"""
         subprocess.check_call(
             shlex.split("git config --global --unset-all alias.task"))
 
 
-def main():
+def main():  # Required for entry_points in setup.py
     fire.Fire(GitTask)
 
 

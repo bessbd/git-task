@@ -1,6 +1,6 @@
 .DEFAULT_GOAL := test
 
-.PHONY: all dockerbuild dockertest test clean release upload
+.PHONY: all dockerbuild dockertest test docs clean release upload
 
 all: test
 
@@ -10,20 +10,26 @@ dockerbuild:
 dockerdevbuild:
 	docker build -t git-task/test -f Dockerfile.dev .
 
-dockertest:
+dockertest: dockerdevbuild
 	docker run -v /var/run/docker.sock:/var/run/docker.sock git-task/test \
 	pytest
 
-devshell: dockerbuild dockerdevbuild
+devshell: dockerbuild
 	docker run -it git-task bash
 
-test: dockerbuild dockerdevbuild dockertest
+docs:
+	pycco -d docs gittask/GitTask.py
+
+test: dockertest
 
 clean:
 	rm -rf .pytest_cache build dist __pycache__
 
 install_semver:
 	pip install semver
+
+install_pycco:
+	pip install pycco
 
 bump_patch:
 	python -c "import semver; version=semver.bump_patch(open('VERSION')\
@@ -37,7 +43,7 @@ bump_major:
 	python -c "import semver; version=semver.bump_major(open('VERSION')\
 	.read().strip()); f=open('VERSION', 'w'); f.write(version)"
 
-bump_commit:
+bump_commit: docs
 	git commit -am "Bump version to `cat VERSION`"
 
 release:

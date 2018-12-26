@@ -25,3 +25,7 @@ gittask install_git_alias
 ```
 echo 'eval "$(gittask -- --completion)"' >> ~/.bashrc
 ```
+
+
+## Docs
+The annotated source is available at [docs//GitTask.html](docs/GitTask.html)
