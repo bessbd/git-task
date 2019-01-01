@@ -4,3 +4,5 @@
     id: yvyqqnhp
 - ? 'Add commit-msg help: https://stackoverflow.com/questions/3966714/how-can-i-change-the-default-comments-in-the-git-commit-message'
   : id: tzwvlfqg
+- 'Change id-s into tags and add terminal coloring: https://pypi.org/project/colorama/':
+    id: fioavvfp
