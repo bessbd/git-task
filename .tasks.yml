@@ -10,3 +10,5 @@
     id: mfngougx
 - Migrate to argparse + argcomplete:
     id: vyzzvxsc
+- 'Allow reordering of tasks - https://stackoverflow.com/questions/3173154/move-an-item-inside-a-list ':
+    id: ibmemvra
