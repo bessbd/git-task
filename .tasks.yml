@@ -8,3 +8,5 @@
     id: fioavvfp
 - Evaluate compatibility options with https://marketplace.visualstudio.com/items?itemName=fabiospampinato.vscode-todo-plus:
     id: mfngougx
+- Migrate to argparse + argcomplete:
+    id: vyzzvxsc
